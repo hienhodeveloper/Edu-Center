@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'dashboard/index'
+  get 'sign_up/index'
+  get 'login/index'
+  get 'home/index'
   get 'welcome/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'welcome#index'
