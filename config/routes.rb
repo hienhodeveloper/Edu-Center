@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'dashboard/index'
   get 'sign_up/index'
   get 'login/index'
   get 'home/index'
