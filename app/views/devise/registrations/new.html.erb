@@ -5,6 +5,12 @@
     <%= render "devise/shared/error_messages", resource: resource %>
     
     <div class="form-group">
+      <%= f.label "You are ?" %> <br/>
+      <%= f.radio_button :student, true %> Student<br />
+      <%= f.radio_button :student, false %> Teacher<br />
+    </div>
+
+    <div class="form-group">
       <%= f.label "Full name" %>
       <%= f.text_field :full_name, autofocus: true, autocomplete: "name", class: "form-control" %>
     </div>
@@ -34,9 +40,4 @@
     </div>
   <% end %>
   <br>
-  <div class="center">
-    <a class="center">or</a>
-    <br>
-    <br>
-    <%= render "devise/shared/social_links" %>
-  </div></div>
+</div>
