@@ -11,13 +11,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    if resource[:role] == 'STUDENT' 
-      resource.student = true
-    end
-    if resource[:role] == 'TEACHER' 
-      resource.teacher = true
-    end
-    resource.delete(:role)
     super
   end
 

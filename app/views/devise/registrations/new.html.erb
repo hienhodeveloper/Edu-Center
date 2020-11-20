@@ -6,14 +6,8 @@
   
     <div class="form-group">
       <%= f.label "You are ?" %> <br>
-      <%= f.radio_button :role, 'STUDENT' %> Student<br />
-      <%= f.radio_button :role, 'TEACHER' %> Teacher<br />
-    </div>
-
-    <div class="form-group">
-      <%= f.label "You are ?" %> <br/>
-      <%= f.radio_button :student, true %> Student<br />
-      <%= f.radio_button :student, false %> Teacher<br />
+      <%= f.radio_button :role, User.roles.keys[0], :checked => true  %> Student<br />
+      <%= f.radio_button :role, User.roles.keys[1] %> Teacher<br />
     </div>
 
     <div class="form-group">
