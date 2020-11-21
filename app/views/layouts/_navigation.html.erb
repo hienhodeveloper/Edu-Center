@@ -20,7 +20,7 @@
             <%= current_user.full_name %>
           </a> 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Update profile</a>
+            <%= link_to  "Update profile", edit_user_registration_path, class: "dropdown-item" %>
             <a class="dropdown-item" href="#">Your courses</a>
             <%= link_to  "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
