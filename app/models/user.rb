@@ -7,7 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
   
-  devise :two_factor_authenticatable,
+  devise :two_factor_authenticatable, :two_factor_backupable,
+         otp_backup_code_length: 10, otp_number_of_backup_codes: 10,
          :otp_secret_encryption_key => Rails.application.credentials.dig(Rails.env.to_sym, :otp_secret_encryption_key)
 
   validates :full_name,
@@ -28,8 +29,12 @@ class User < ApplicationRecord
         )
       end
   end
+  # Ensure that backup codes can be serialized
+  serialize :otp_backup_codes, JSON
 
-   # Generate an OTP secret it it does not already exist
+  attr_accessor :otp_plain_backup_codes
+
+  # Generate an OTP secret it it does not already exist
   def generate_two_factor_secret_if_missing!
     return unless otp_secret.nil?
     update!(otp_secret: User.generate_otp_secret)
@@ -44,7 +49,8 @@ class User < ApplicationRecord
   def disable_two_factor!
     update!(
         otp_required_for_login: false,
-        otp_secret: nil)
+        otp_secret: nil,
+        otp_backup_codes: nil)
   end
 
   # URI for OTP two-factor QR code
@@ -54,4 +60,10 @@ class User < ApplicationRecord
 
     otp_provisioning_uri(label, issuer: issuer)
   end
+
+  # Determine if backup codes have been generated
+  def two_factor_backup_codes_generated?
+    otp_backup_codes.present?
+  end
+
 end

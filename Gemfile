@@ -32,6 +32,7 @@ gem 'devise'
 gem 'pundit'
 gem 'devise-two-factor'
 gem 'rqrcode'
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
