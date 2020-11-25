@@ -25,7 +25,8 @@ class User < ApplicationRecord
            email: data['email'],
            password: Devise.friendly_token[0,20],
            uid: access_token[:uid],
-           provider: access_token[:provider]
+           provider: access_token[:provider],
+           role: User.roles.keys[0] 
         )
       end
   end
