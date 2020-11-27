@@ -15,7 +15,7 @@ require("channels")
 toastr.options = {
   "closeButton": false,
   "debug": false,
-  "newestOnTop": false,
+  "newestOnTop": true,
   "progressBar": false,
   "positionClass": "toast-bottom-full-width",
   "preventDuplicates": false,

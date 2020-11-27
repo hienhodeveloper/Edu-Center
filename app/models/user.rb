@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_accessor :tmp_password
+
   enum role: [:student, :teacher, :admin]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -21,12 +23,15 @@ class User < ApplicationRecord
       if user
         user
       else
+        chars = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
+        password = chars.sort_by { rand }.join[0...10]
         user = User.create(full_name: data['name'],
            email: data['email'],
-           password: Devise.friendly_token[0,20],
+           password: password,
            uid: access_token[:uid],
            provider: access_token[:provider],
-           role: User.roles.keys[0] 
+           role: User.roles.keys[0],
+           tmp_password: password
         )
       end
   end
@@ -66,5 +71,4 @@ class User < ApplicationRecord
   def two_factor_backup_codes_generated?
     otp_backup_codes.present?
   end
-
 end

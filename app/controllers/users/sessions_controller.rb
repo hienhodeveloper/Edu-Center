@@ -8,5 +8,4 @@ class Users::SessionsController < Devise::SessionsController
                         if: -> { action_name == 'create' && otp_two_factor_enabled? }
 
   protect_from_forgery with: :exception, prepend: true, except: :destroy
-
 end
