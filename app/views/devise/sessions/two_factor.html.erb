@@ -3,9 +3,9 @@
   <div class="card-body">
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), method: :post) do |f| %>
       <%= f.input :otp_attempt, label: 'OTP' %>
-      <div class="float-right">
-        <%= link_to "Resend OTP", resent_otp_path(resource) %><br />
-      </div>
+      <small>If you lose access to Google Authenticator App, there are 2 ways to get OTP:</small><br>
+      <small>1/ Recreate access CODE manually in App by using generate code at the first step when you setup 2FA</small> <br>
+      <small>2/ Using Backup Codes that you have got when you set up 2FA successfully at last step</small>
       <div class="actions">
         <%= f.submit 'Login', class: 'btn btn-primary mt-2' %>
       </div>

@@ -1,3 +1,4 @@
 <p>Hi <%= @email %>!</p>
 
-<p>This is your OTP: <%= @otp %> </p>
+<p>This is your OTP: </p>
+<%= qr_code_as_image(@otp) %>

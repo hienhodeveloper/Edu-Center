@@ -8,9 +8,9 @@ class SendOtpMailer < ApplicationMailer
     issuer = Rails.application.credentials.dig(Rails.env.to_sym, :otp_2fa_issuer_name)
     label = "#{issuer}:#{@email}"
 
-    @otp = params[:user].current_otp
+    # @otp = params[:user].current_otp
+    @otp = params[:user].otp_provisioning_uri(label, issuer: issuer)
     mail(to: @email, subject: 'OTP Verification')
-
   end
 
   def send_first_password

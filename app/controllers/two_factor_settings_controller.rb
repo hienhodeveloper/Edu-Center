@@ -37,7 +37,6 @@ class TwoFactorSettingsController < ApplicationController
       flash[:alert] = 'You have already seen your backup codes.'
       return redirect_to edit_user_registration_path
     end
-
     @backup_codes = current_user.generate_otp_backup_codes!
     current_user.save!
   end

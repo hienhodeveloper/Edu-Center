@@ -1,7 +1,6 @@
 class User < ApplicationRecord
-  attr_accessor :tmp_password
-
   enum role: [:student, :teacher, :admin]
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :registerable,
@@ -9,8 +8,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
   
-  devise :two_factor_authenticatable, :two_factor_backupable,
-         otp_backup_code_length: 10, otp_number_of_backup_codes: 10,
+  devise :two_factor_authenticatable, 
+         :two_factor_backupable, otp_backup_code_length: 10, otp_number_of_backup_codes: 10,
          :otp_secret_encryption_key => Rails.application.credentials.dig(Rails.env.to_sym, :otp_secret_encryption_key)
 
   validates :full_name,
@@ -31,14 +30,9 @@ class User < ApplicationRecord
            uid: access_token[:uid],
            provider: access_token[:provider],
            role: User.roles.keys[0],
-           tmp_password: password
         )
       end
   end
-  # Ensure that backup codes can be serialized
-  serialize :otp_backup_codes, JSON
-
-  attr_accessor :otp_plain_backup_codes
 
   # Generate an OTP secret it it does not already exist
   def generate_two_factor_secret_if_missing!

@@ -7,8 +7,8 @@ module AuthenticateWithOtpTwoFactor
     if user_params[:otp_attempt].present? && session[:otp_user_id]
       authenticate_user_with_otp_two_factor(user)
     elsif user&.valid_password?(user_params[:password])
-      SendOtpMailer.with(user: user).otp_email.deliver_later
-      flash[:notice]= 'We have sent OTP to your email! Please check'
+      # SendOtpMailer.with(user: user).otp_email.deliver_later
+      # flash[:notice]= 'We have sent OTP to your email! Please check'
       prompt_for_otp_two_factor(user)
     end
   end

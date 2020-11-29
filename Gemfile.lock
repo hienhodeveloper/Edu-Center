@@ -45,6 +45,8 @@ GEM
     activerecord (6.0.3.4)
       activemodel (= 6.0.3.4)
       activesupport (= 6.0.3.4)
+    activerecord-postgres-array (0.0.10)
+      activerecord
     activestorage (6.0.3.4)
       actionpack (= 6.0.3.4)
       activejob (= 6.0.3.4)
@@ -256,6 +258,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-postgres-array
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug
