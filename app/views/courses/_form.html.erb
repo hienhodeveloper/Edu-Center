@@ -1,0 +1,21 @@
+
+<%= simple_form_for(@course) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :introduction, :input_html => { 'rows' => 15} %>
+    <%= f.input :price %>
+    <%= f.input :address %>
+    <%= f.input :goal, :input_html => { 'rows' => 10} %>
+    <%= f.input :condition, :input_html => { 'rows' => 5} %>
+    <%= f.input :degree, :input_html => { 'rows' => 5} %>
+    <%= f.input :course_content, :input_html => { 'rows' => 20} %>
+    <%= f.input :status %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
