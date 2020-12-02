@@ -1,47 +1,29 @@
-<p id="notice"><%= notice %></p>
+<% if @course.photo.attached? %>
+  <%= image_tag @course.photo, style: "width: 100%; height: 500px; object-fit: cover;" %>
+  <br>
+  <br>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
+<h1 class="center">
   <%= @course.name %>
+</h1>
+
+<p class="text-right font-weight-bold" style="font-size: 30px">
+  <%= number_to_currency(@course.price, unit: "đ", separator: ",", delimiter: ".", format: "%n%u", precision: 0) %>
 </p>
 
 <p>
-  <strong>Introduction:</strong>
+  <h4>Introduction:</h4>
   <%= @course.introduction %>
 </p>
 
 <p>
-  <strong>Price:</strong>
-  <%= @course.price %>
+  <h4>Content:</h4>
+  <%= @course.content %>
 </p>
 
 <p>
-  <strong>Address:</strong>
-  <%= @course.address %>
-</p>
-
-<p>
-  <strong>Goal:</strong>
-  <%= @course.goal %>
-</p>
-
-<p>
-  <strong>Condition:</strong>
-  <%= @course.condition %>
-</p>
-
-<p>
-  <strong>Degree:</strong>
-  <%= @course.degree %>
-</p>
-
-<p>
-  <strong>Course content:</strong>
-  <%= @course.course_content %>
-</p>
-
-<p>
-  <strong>Status:</strong>
+  <h4>Status:</h4>
   <%= @course.status %>
 </p>
 

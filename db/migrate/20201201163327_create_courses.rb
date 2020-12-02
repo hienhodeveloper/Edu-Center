@@ -4,12 +4,7 @@ class CreateCourses < ActiveRecord::Migration[6.0]
       t.string :name
       t.text :introduction
       t.integer :price
-      t.string :address
-      t.text :goal
-      t.text :condition
-      t.text :degree
-      t.text :course_content
-      t.string :status
+      t.integer :status, :default => 0
 
       t.timestamps
     end

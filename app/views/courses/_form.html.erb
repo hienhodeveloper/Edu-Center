@@ -4,15 +4,15 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
+    <% if course.photo.attached? %>
+      <%= image_tag course.photo, style: "width: 100%; height: 500px; object-fit: cover;" %>
+    <% end %>
+    <%= f.input :photo %>
     <%= f.input :name %>
     <%= f.input :introduction, :input_html => { 'rows' => 15} %>
+    <%= f.input :content, as: :rich_text_area, label: 'Content', placeholder: 'Your content' %>
     <%= f.input :price %>
-    <%= f.input :address %>
-    <%= f.input :goal, :input_html => { 'rows' => 10} %>
-    <%= f.input :condition, :input_html => { 'rows' => 5} %>
-    <%= f.input :degree, :input_html => { 'rows' => 5} %>
-    <%= f.input :course_content, :input_html => { 'rows' => 20} %>
-    <%= f.input :status %>
+    <%= f.input :status, collection: Course.statuses.keys %>
   </div>
 
   <div class="form-actions">

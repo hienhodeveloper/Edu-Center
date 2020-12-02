@@ -4,20 +4,10 @@ one:
   name: MyString
   introduction: MyText
   price: 1
-  address: MyString
-  goal: MyText
-  condition: MyText
-  degree: MyText
-  course_content: MyText
-  status: MyString
+  status: 1
 
 two:
   name: MyString
   introduction: MyText
   price: 1
-  address: MyString
-  goal: MyText
-  condition: MyText
-  degree: MyText
-  course_content: MyText
-  status: MyString
+  status: 1

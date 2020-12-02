@@ -14,11 +14,6 @@ class CoursesTest < ApplicationSystemTestCase
     visit courses_url
     click_on "New Course"
 
-    fill_in "Address", with: @course.address
-    fill_in "Condition", with: @course.condition
-    fill_in "Course content", with: @course.course_content
-    fill_in "Degree", with: @course.degree
-    fill_in "Goal", with: @course.goal
     fill_in "Introduction", with: @course.introduction
     fill_in "Name", with: @course.name
     fill_in "Price", with: @course.price
@@ -33,11 +28,6 @@ class CoursesTest < ApplicationSystemTestCase
     visit courses_url
     click_on "Edit", match: :first
 
-    fill_in "Address", with: @course.address
-    fill_in "Condition", with: @course.condition
-    fill_in "Course content", with: @course.course_content
-    fill_in "Degree", with: @course.degree
-    fill_in "Goal", with: @course.goal
     fill_in "Introduction", with: @course.introduction
     fill_in "Name", with: @course.name
     fill_in "Price", with: @course.price
