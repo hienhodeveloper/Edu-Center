@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :courses
+  resources :courses do 
+    get 'subcribe_course', on: :member
+    delete 'unsubcribe_course', on: :member
+  end
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'users/sessions' }
   get 'about/index'
   get 'login/index'

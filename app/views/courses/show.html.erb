@@ -24,8 +24,17 @@
 
 <p>
   <h4>Status:</h4>
-  <%= @course.status %>
+  <%= @course.status.capitalize %>
 </p>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<% if policy(@course).edit? %>
+  <%= link_to 'Edit', edit_course_path(@course), class: "btn btn-primary btn-lg btn-block" %>
+<% end %>
+
+<% if policy(@course).allowSubcribe? %>
+  <%= link_to 'Subcribe this course now!!!', subcribe_course_course_path(@course), class: "btn btn-primary btn-lg btn-block" %>
+<% end %>
+
+<% if policy(@course).allowUnsubcribe? %>
+  <%= link_to 'UnSubcribe this course now!!!', unsubcribe_course_course_path(@course), method: :delete, data: { confirm: 'Unsubcribe this course. Are you sure?' }, class: "btn btn-primary btn-lg btn-block" %>
+<% end %>

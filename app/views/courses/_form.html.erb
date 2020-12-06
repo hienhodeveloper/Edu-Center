@@ -12,7 +12,9 @@
     <%= f.input :introduction, :input_html => { 'rows' => 15} %>
     <%= f.input :content, as: :rich_text_area, label: 'Content', placeholder: 'Your content' %>
     <%= f.input :price %>
-    <%= f.input :status, collection: Course.statuses.keys %>
+    <% if current_user.admin? %>
+      <%= f.input :status, collection: Course.statuses.keys %>
+    <% end %>
   </div>
 
   <div class="form-actions">

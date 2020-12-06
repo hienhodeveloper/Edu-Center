@@ -1,8 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Courses</h1>
-
-<table>
+<h1 class="center">
+<% if current_user.student? %>
+  Your Subcribe Courses
+<% end %>
+<% if current_user.teacher? or current_user.admin? %>
+  Your Courses
+<% end %>
+</h1>
+<%
+=begin%>
+ <table>
   <thead>
     <tr>
       <th>Name</th>
@@ -26,8 +34,56 @@
       </tr>
     <% end %>
   </tbody>
-</table>
+</table> 
+<%
+=end%>
+<% @courses.each do |course| %>
+      <%= link_to course, style:"text-decoration:none; color: black" do %>
+      <div class="card mb-3" style="max-height: 200px;overflow: hidden">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <%= image_tag course.photo, class: "card-img" %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= course.name %></h5>
+              <p class="card-text" style="max-height: 50px;overflow: hidden; text-overflow: ellipsis;"><%= course.introduction %></p>
+              <p class="card-text"><h4><%= number_to_currency(course.price, unit: "đ", separator: ",", delimiter: ".", format: "%n%u", precision: 0) %></h4></p>
+              <p class="card-text"><small class="text-muted">Status:</small> <%= course.status.capitalize %></p>        
+            </div>
+
+          </div>
+        </div>
+        <div style="position: absolute; top: 4px; right: 8px">
+        
+        <% if current_user.teacher? or current_user.admin? %>
+          <%= link_to course, method: :delete, data: { confirm: 'Remove this course. Are you sure?' } do %>
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>  
+            <% end %>
+        <% end %>
+        
+        
+        <% if current_user.student? %>
+          <%= link_to unsubcribe_course_course_path(course), method: :delete, data: { confirm: 'Unsubcribe this course. Are you sure?' } do %>
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>  
+            <% end %>
+        <% end %>
+        
+   
+        </div>
+      </div>
+<% end %>
 
 <br>
+ <% end %>
 
-<%= link_to 'New Course', new_course_path %>
+<% if current_user.teacher? %>
+  <%= link_to 'New Course', new_course_path, class: "btn btn-primary btn-lg btn-block" %>
+  <br>
+  <br>
+<% end %>
+

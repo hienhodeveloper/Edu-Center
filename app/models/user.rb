@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  has_one_attached :avatar
+  has_many :courses
+
+  has_many :subcribe_courses
+  has_many :course, :through => :subcribe_courses
+
   enum role: [:student, :teacher, :admin]
   
   # Include default devise modules. Others available are:
