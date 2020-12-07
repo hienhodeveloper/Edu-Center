@@ -98,7 +98,7 @@ Rails.application.configure do
     password: Rails.application.credentials.dig(Rails.env.to_sym, :mail_password),
     domain: Rails.application.credentials.dig(Rails.env.to_sym, :mail_domain),
     address: 'smtp.gmail.com',
-    port: '465',
+    port: '587',
     authentication: :plain,
     enable_starttls_auto: true
   }
