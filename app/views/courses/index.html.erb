@@ -37,6 +37,11 @@
 </table> 
 <%
 =end%>
+
+<% if @courses.length() == 0 %>
+  <p class="center">Empty course !!!<p>
+<% end %>
+
 <% @courses.each do |course| %>
       <%= link_to course, style:"text-decoration:none; color: black" do %>
       <div class="card mb-3" style="max-height: 200px;overflow: hidden">
