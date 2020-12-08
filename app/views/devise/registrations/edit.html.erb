@@ -26,7 +26,12 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-3">
-                  <%= image_tag current_user.avatar, class: "rounded", style: "width: 100px; height: 100px; object-fit: cover;" %>
+                  <% if current_user.avatar.attached? %>
+                    <%= image_tag current_user.avatar , class: "rounded", style: "width: 100px; height: 100px; object-fit: cover;" %>
+                  <% end %>
+                  <% if !current_user.avatar.attached? %>
+                      <%= image_tag "user.png" , class: "rounded", style: "width: 100px; height: 100px; object-fit: cover;" %>
+                  <% end %>
                 </div>
                 <div class="col-sm-8">
                   <%= f.input :avatar %>

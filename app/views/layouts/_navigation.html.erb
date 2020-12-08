@@ -18,7 +18,13 @@
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= current_user.full_name %>
-            <%= image_tag current_user.avatar, class: "rounded", style: "width: 40px; height: 40px; object-fit: cover;" %>
+            
+            <% if current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar , class: "rounded", style: "width: 40px; height: 40px; object-fit: cover;" %>
+            <% end %>
+            <% if !current_user.avatar.attached? %>
+                <%= image_tag "user.png" , class: "rounded", style: "width: 40px; height: 40px; object-fit: cover;" %>
+            <% end %>
           </a> 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <%= link_to  "Update profile", edit_user_registration_path, class: "dropdown-item" %>
