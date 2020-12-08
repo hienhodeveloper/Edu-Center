@@ -10,5 +10,6 @@ class Course < ApplicationRecord
   has_one_attached :photo
 
   validates :name, :introduction, :price, :content, presence: true
+  validates :photo, content_type: [:png, :jpg, :jpeg]
 
 end
