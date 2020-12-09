@@ -21,8 +21,6 @@ class User < ApplicationRecord
   validates :full_name,
     presence: true, 
     length: { maximum: 25 }
-
-  validates :avatar, content_type: [:png, :jpg, :jpeg]
   
   def self.from_omniauth(access_token)
       data = access_token.info
