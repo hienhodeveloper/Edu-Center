@@ -12,6 +12,30 @@
   <%= number_to_currency(@course.price, unit: "đ", separator: ",", delimiter: ".", format: "%n%u", precision: 0) %>
 </p>
 
+<div class="row">
+  <div class="col-1.4" >
+      <% if @course.user.avatar.attached? %>
+        <%= image_tag @course.user.avatar , class: "rounded-circle", style: "width: 100px; height: 100px; object-fit: cover;" %>
+      <% end %>
+      <% if !@course.user.avatar.attached? %>
+          <%= image_tag "user.png" , class: "rounded-circle", style: "width: 100px; height: 100px; object-fit: cover;" %>
+      <% end %>
+  </div>
+
+  <div class="col-4">
+    <p>
+    <h4>Teacher:</h4>
+    <%= @course.user.full_name %> <br>
+    Email: <%= @course.user.email %>
+    </p>
+  </div>
+</div>
+
+<p>
+  <h4>Subcribe user:</h4>
+  Total subcribe students: <%= @course.users.length() %>
+</p>
+
 <p>
   <h4>Introduction:</h4>
   <%= @course.introduction %>
@@ -26,6 +50,7 @@
   <h4>Status:</h4>
   <%= @course.status.capitalize %>
 </p>
+
 
 <% if policy(@course).edit? %>
   <%= link_to 'Edit', edit_course_path(@course), class: "btn btn-primary btn-lg btn-block" %>

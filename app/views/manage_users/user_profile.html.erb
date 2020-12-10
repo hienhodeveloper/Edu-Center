@@ -1,0 +1,72 @@
+<div class="center">
+  <% if @user.avatar.attached? %>
+    <%= image_tag @user.avatar , class: "rounded-circle", style: "width: 150px; height: 150px; object-fit: cover;" %>
+  <% end %>
+  <% if !@user.avatar.attached? %>
+    <%= image_tag "user.png" , class: "rounded-circle", style: "width: 150px; height: 150px; object-fit: cover;" %>
+  <% end %> 
+</div>
+
+<small>Full name</small>
+<h6><%= @user.full_name %></h6>
+<small>Email</small>
+<h6><%= @user.email %></h6>
+<small>Role</small>
+<h6><%= @user.role %></h6>
+<small>Created date</small>
+<h6><%= @user.created_at.strftime("%d/%m/%Y %R") %></h6>
+<small>Last update</small>
+<h6><%= @user.updated_at.strftime("%d/%m/%Y %R") %></h6>
+
+<% if @user.teacher? %>
+    <h3 class="center">Created courses: </h3>
+    <% if @user.courses.length() == 0 %>
+      <p class="center">Empty course !!!<p>
+    <% end %>
+    <% @user.courses.each do |course| %>
+      <%= link_to course, style:"text-decoration:none; color: black" do %>
+      <div class="card mb-3" style="max-height: 200px; overflow: hidden">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <%= image_tag course.photo, class: "card-img" %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= course.name %></h5>
+              <p class="card-text" style="max-height: 50px;overflow: hidden; text-overflow: ellipsis;"><%= course.introduction %></p>
+              <p class="card-text"><h4><%= number_to_currency(course.price, unit: "đ", separator: ",", delimiter: ".", format: "%n%u", precision: 0) %></h4></p>
+              <p class="card-text"><small class="text-muted">Status:</small> <%= course.status.capitalize %></p>        
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+<% end %>
+  
+<% if @user.student? %>
+    <h3 class="center">Subcribed courses: </h3>
+    <% if @user.course.length() == 0 %>
+      <p class="center">Empty course !!!<p>
+    <% end %>
+    <% @user.course.each do |course| %>
+      <%= link_to course, style:"text-decoration:none; color: black" do %>
+      <div class="card mb-3" style="max-height: 200px; overflow: hidden">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <%= image_tag course.photo, class: "card-img" %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= course.name %></h5>
+              <p class="card-text" style="max-height: 50px;overflow: hidden; text-overflow: ellipsis;"><%= course.introduction %></p>
+              <p class="card-text"><h4><%= number_to_currency(course.price, unit: "đ", separator: ",", delimiter: ".", format: "%n%u", precision: 0) %></h4></p>
+              <p class="card-text"><small class="text-muted">Status:</small> <%= course.status.capitalize %></p>        
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+<% end %>
+  

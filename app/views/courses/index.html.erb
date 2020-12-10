@@ -4,8 +4,11 @@
 <% if current_user.student? %>
   Your Subcribe Courses
 <% end %>
-<% if current_user.teacher? or current_user.admin? %>
+<% if current_user.teacher? %>
   Your Courses
+<% end %>
+<% if current_user.admin? %>
+  All Courses
 <% end %>
 </h1>
 <%
