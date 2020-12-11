@@ -19,11 +19,7 @@ class SubcribeCoursePolicy < ApplicationPolicy
   end
 
   def create?
-    if @user != nil && @user.student?
-      first = SubcribeCourse.where(user_id: @record.user_id, course_id: @record.course_id)
-      return !first.exists?
-    end
-    return false
+    @user && @user.student?
   end
   
   def update?

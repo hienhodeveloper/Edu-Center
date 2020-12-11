@@ -16,7 +16,14 @@ class UserPolicy < ApplicationPolicy
     @record = record
   end
 
-  def user_profile
+  def index?
     @user && @user.admin?
+  end
+
+  def show?
+    if @user 
+      return @user.admin?
+    end
+    return false
   end
 end

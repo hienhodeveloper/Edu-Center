@@ -2,16 +2,17 @@
   <% @courses.each do |course| %>
     <div class="card">
       <%= link_to course, style:"text-decoration:none; color: black" do %>
-      <%= image_tag course.photo, class: "card-img-top" %>
+      <div class="card-img-top">
+        <%= image_tag course.photo, style: "width: 100%"%>
+      </div>
       <div class="card-body">
         <h5 class="card-title"><%= course.name %></h5>
         <p class="card-text" style="height: 100px;overflow: hidden; text-overflow: ellipsis;"><%= course.introduction %></p>
       </div>
-      <div class="card-footer">
-        <h3 class="text-muted"> 
+      
+        <h3 class="center text-muted"> 
           <%= number_to_currency(course.price, unit: "đ", separator: ",", delimiter: ".", format: "%n%u", precision: 0) %>
         </h3>
-      </div>
       <% end %>
     </div>
   <% end %>

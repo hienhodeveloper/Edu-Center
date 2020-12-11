@@ -26,12 +26,12 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def show?
-    first = Course.where(:id => record.id, :status => "approved")
+    is_my_created = Course.where(:id => record.id, :status => "approved")
     if @user != nil
       second = Course.where(user_id: @user.id)
-      first.exists? or second.exists? or @user.admin?
+      is_my_created.exists? or second.exists? or @user.admin?
     else
-      first.exists? 
+      is_my_created.exists? 
     end
   end
 
@@ -44,16 +44,16 @@ class CoursePolicy < ApplicationPolicy
 
   def update?
     if @user != nil 
-      first = Course.where(:id => record.id, :user_id => @user.id)
-      return (@user.admin? or first.exists?)
+      is_my_created = Course.where(:id => record.id, :user_id => @user.id)
+      return (@user.admin? or is_my_created.exists?)
     end
     return false
   end
 
   def destroy?
     if @user != nil 
-      first = Course.where(:id => record.id, :user_id => @user.id)
-      return (@user.admin? or first.exists?)
+      is_my_created = Course.where(:id => record.id, :user_id => @user.id)
+      return (@user.admin? or is_my_created.exists?)
     end
     return false
   end

@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   namespace :manage_users do
-    get 'all', action: :users
-    get 'user/:id', action: :user_profile
+    get 'all', action: :index
+    get 'user/:id', action: :show
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resource :two_factor_settings, except: [:index, :show]
