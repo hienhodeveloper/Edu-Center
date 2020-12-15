@@ -13,6 +13,12 @@ module AuthenticateWithOtpTwoFactor
     end
   end
 
+  def remove_session
+    if session[:otp_user_id]
+      session.delete(:otp_user_id)
+    end
+  end
+
   private
 
   def valid_otp_attempt?(user)
