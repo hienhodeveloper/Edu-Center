@@ -11,5 +11,4 @@ class Course < ApplicationRecord
 
   validates :name, :introduction, :price, :content, presence: true
   validates :photo, content_type: [:png, :jpg, :jpeg]
-
 end

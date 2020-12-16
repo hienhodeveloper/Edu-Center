@@ -22,7 +22,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/new
   def new
-    @course = current_user.courses.new
+    @course = Course.new()
     authorize @course, :create?
     @users = User.where(role: 'teacher')
     if !@users.exists?
