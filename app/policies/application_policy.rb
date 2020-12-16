@@ -46,4 +46,18 @@ class ApplicationPolicy
       scope.all
     end
   end
+
+  def check_permission(action)
+    if @user 
+      user_permissions = UserPermission.where(user_id: @user.id)
+      result = user_permissions.each do |user_per|
+        user_per.permission.permission_details.each do |per_detail|
+          if per_detail.action_code == action
+            return true
+          end
+        end
+      end
+    end
+    return false
+  end
 end

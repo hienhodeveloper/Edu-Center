@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_05_044412) do
+ActiveRecord::Schema.define(version: 2020_12_15_032220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,19 @@ ActiveRecord::Schema.define(version: 2020_12_05_044412) do
     t.integer "user_id"
   end
 
+  create_table "permission_details", force: :cascade do |t|
+    t.string "action_code", null: false
+    t.integer "permission_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.string "name_per", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "subcribe_courses", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "course_id"
@@ -63,6 +76,14 @@ ActiveRecord::Schema.define(version: 2020_12_05_044412) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_subcribe_courses_on_course_id"
     t.index ["user_id"], name: "index_subcribe_courses_on_user_id"
+  end
+
+  create_table "user_permissions", force: :cascade do |t|
+    t.boolean "licensed", null: false
+    t.integer "permission_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

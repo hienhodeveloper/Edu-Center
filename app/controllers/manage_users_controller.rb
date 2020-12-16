@@ -7,7 +7,12 @@ class ManageUsersController < ApplicationController
   end
 
   def show
-    @user = policy_scope(User).find(params[:id])
-    authorize [current_user, @user], :show?, policy_class: UserPolicy
+    @user = User.find(params[:id])
+    if @user
+      authorize @user, :show?, policy_class: UserPolicy
+    else
+      flash[:notice] = "Not found user"
+      redirect_to(root_path)
+    end
   end
 end

@@ -1,11 +1,10 @@
 class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if @user != nil && @user.admin? 
-        scope.all
-      else
-        []
+      if @user.admin?
+        return scope.all
       end
+      return scope.where(role: 'teacher')
     end
   end
 
@@ -17,12 +16,27 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    @user && @user.admin?
+    return check_permission('VIEW_USER') && @user.admin?
   end
 
   def show?
-    if @user 
-      return @user.admin?
+    if check_permission('VIEW_USER')
+      if @user.admin? 
+        return true
+      end
+      if @record.role == "admin"
+        return false
+      end
+      if @user.teacher? && @record.role == 'student'
+        return false
+      end 
+      if @record.id == @user.id
+        return true
+      end
+      if @user.student? && @record.role == 'student'
+        return false
+      end
+      return true
     end
     return false
   end

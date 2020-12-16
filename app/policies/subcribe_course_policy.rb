@@ -19,11 +19,11 @@ class SubcribeCoursePolicy < ApplicationPolicy
   end
 
   def create?
-    @user && @user.student?
+    check_permission('CREATE_SUBCRIBE_COURSE')
   end
   
   def update?
-    if @user != nil && @user.student?
+    if check_permission('EDIT_SUBCRIBE_COURSE')
       first = SubcribeCourse.where(user_id: @user.id, id: @record.id)
       return first.exists?
     end
@@ -31,7 +31,7 @@ class SubcribeCoursePolicy < ApplicationPolicy
   end
   
   def destroy?
-    if @user != nil && @user.student?
+    if check_permission('EDIT_SUBCRIBE_COURSE')
       first = SubcribeCourse.where(user_id: @user.id, id: @record.id)
       return first.exists?
     end

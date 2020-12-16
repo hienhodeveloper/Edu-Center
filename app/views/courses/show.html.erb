@@ -13,14 +13,16 @@
 </p>
 
 <div class="row">
-  <div class="col-1.4" >
-      <% if @course.user.avatar.attached? %>
-        <%= image_tag @course.user.avatar , class: "rounded-circle", style: "width: 100px; height: 100px; object-fit: cover;" %>
-      <% end %>
-      <% if !@course.user.avatar.attached? %>
-          <%= image_tag "user.png" , class: "rounded-circle", style: "width: 100px; height: 100px; object-fit: cover;" %>
-      <% end %>
-  </div>
+  <%= link_to manage_users_path(@course.user.id) do %>
+    <div class="col-1.4" >
+        <% if @course.user.avatar.attached? %>
+          <%= image_tag @course.user.avatar , class: "rounded-circle", style: "width: 100px; height: 100px; object-fit: cover;" %>
+        <% end %>
+        <% if !@course.user.avatar.attached? %>
+            <%= image_tag "user.png" , class: "rounded-circle", style: "width: 100px; height: 100px; object-fit: cover;" %>
+        <% end %>
+    </div>
+  <% end %> 
 
   <div class="col-4">
     <p>

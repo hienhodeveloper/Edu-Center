@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params
+  # before_action :configure_sign_up_params
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -10,9 +10,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super do |user|
+      # Default Permission: Basic Reader, Basic Writer
+      UserPermission.create({user_id: user.id, permission_id: 2, licensed: true})
+      UserPermission.create({user_id: user.id, permission_id: 3, licensed: true})
+      if user.teacher?
+        UserPermission.create({user_id: user.id, permission_id: 4, licensed: true})
+      end
+      if user.student?
+        UserPermission.create({user_id: user.id, permission_id: 5, licensed: true})
+      end
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -38,11 +48,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  protected
-    # If you have extra params to permit, append them to the sanitizer.
-    def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:full_name, :role])
-    end
+  # protected
+  #   # If you have extra params to permit, append them to the sanitizer.
+  #   def configure_sign_up_params
+  #     devise_parameter_sanitizer.permit(:sign_up, keys: [:full_name, :role])
+  #   end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

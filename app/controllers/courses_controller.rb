@@ -75,8 +75,8 @@ class CoursesController < ApplicationController
 
   def subcribe_course
     @course = Course.find(@course.id)
-    authorize @course, :allowSubcribe?
     @subcribe = SubcribeCourse.new(user_id: current_user.id, course_id: @course.id)
+    authorize @subcribe, :create?, policy_class: SubcribeCoursePolicy
     if SubcribeCourse.where(user_id: current_user.id, course_id: @course.id).exists? 
       flash[:notice] = "You already subcribe this course"
     else 
@@ -90,10 +90,9 @@ class CoursesController < ApplicationController
   end
 
   def unsubcribe_course
-    @course = Course.find(@course.id)
-    authorize @course, :allowUnsubcribe?
-    is_subcribe = SubcribeCourse.where(user_id: current_user.id, course_id: @course.id).exists? 
-    if is_subcribe
+    subcribe = SubcribeCourse.where(user_id: current_user.id, course_id: @course.id).first
+    authorize subcribe, :destroy?, policy_class: SubcribeCoursePolicy
+    if subcribe
       if SubcribeCourse.where(user_id: current_user.id, course_id: @course.id).destroy_all
         flash[:notice] = "Unsubcribe this course success"
       else
