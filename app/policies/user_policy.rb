@@ -15,6 +15,10 @@ class UserPolicy < ApplicationPolicy
     @record = record
   end
 
+  def create? 
+    return check_permission('CREATE_USER')
+  end
+
   def index?
     return check_permission('VIEW_USER') && @user.admin?
   end

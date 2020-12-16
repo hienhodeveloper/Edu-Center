@@ -86,7 +86,7 @@
 <br>
  <% end %>
 
-<% if current_user.teacher? %>
+<% if current_user.teacher? or current_user.admin? %>
   <%= link_to 'New Course', new_course_path, class: "btn btn-primary btn-lg btn-block" %>
   <br>
   <br>

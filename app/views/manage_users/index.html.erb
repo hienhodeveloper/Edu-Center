@@ -5,7 +5,7 @@
       <th scope="col">Full name</th>
       <th scope="col">Email</th>
       <th scope="col">Role</th>
-
+      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -15,8 +15,15 @@
         <td><%= user.full_name %></td>
         <td><%= user.email %></td>
         <td><%= user.role %></td>
+        <td><%= user.status %></td>
         <td><%= link_to 'Show', manage_users_path(user.id)  %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+# <% if policy(current_user).create? %>
+#   <%= link_to 'New user', new_course_path, class: "btn btn-primary btn-lg btn-block" %>
+#   <br>
+#   <br>
+# <% end %>

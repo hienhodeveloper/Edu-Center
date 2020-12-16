@@ -71,4 +71,11 @@ class User < ApplicationRecord
   def two_factor_backup_codes_generated?
     otp_backup_codes.present?
   end
+
+  def status 
+    if confirmed_at == nil 
+      return "not confirm email"
+    end
+    return "active"
+  end
 end
