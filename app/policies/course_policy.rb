@@ -46,14 +46,14 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def allowSubcribe?
-    if check_permission('CREATE_SUBCRIBE_COURSE') 
+    if check_permission('CREATE_SUBCRIBE_COURSE') && @user.student?
       return !@record.users.ids.include?(@user.id)
     end
     return false
   end
 
   def allowUnsubcribe?
-    if check_permission('DELETE_SUBCRIBE_COURSE') 
+    if check_permission('DELETE_SUBCRIBE_COURSE') && @user.student?
       return @record.users.ids.include?(@user.id)
     end
     return false
