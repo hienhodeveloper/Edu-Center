@@ -18,11 +18,15 @@
               <%= qr_code_as_svg(current_user.two_factor_qr_code_uri)%>
             </p>
             <hr />
-            <p class="text-center">
+            <%
+=begin%>
+ <p class="text-center">
               Or by using CODE
               <br>CODE: <code><%= current_user.otp_secret%></code>
               <br>NOTE: Please note above CODE or QR Image in somewhere to recreate access if you lost
-            </p>
+            </p> 
+<%
+=end%>
           </div>
         </div>
         <div class="card">
