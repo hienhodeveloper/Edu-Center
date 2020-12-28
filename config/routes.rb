@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   namespace :manage_users do
     get 'all', action: :index
     get 'user/:id', action: :show
+    post 'update_per', action: :update_per
   end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resource :two_factor_settings, except: [:index, :show]
 

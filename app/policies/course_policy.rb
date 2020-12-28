@@ -42,18 +42,28 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def destroy?
-    update?
+    if check_permission('DELETE_COURSE')
+      is_my_created = Course.where(:id => @record.id, :user_id => @user.id)
+      return (@user.admin? or is_my_created.exists?)
+    end
+    return false
   end
 
   def allowSubcribe?
-    if check_permission('CREATE_SUBCRIBE_COURSE') && @user.student?
+    if @user == nil 
+      return false
+    end
+    if check_permission('SUBCRIBE_COURSE')
       return !@record.users.ids.include?(@user.id)
     end
     return false
   end
 
   def allowUnsubcribe?
-    if check_permission('DELETE_SUBCRIBE_COURSE') && @user.student?
+    if @user == nil 
+      return false
+    end
+    if check_permission('UNSUBCRIBE_COURSE')
       return @record.users.ids.include?(@user.id)
     end
     return false
@@ -61,6 +71,9 @@ class CoursePolicy < ApplicationPolicy
 
   def allowShowSubcribeStudent? 
     if @user != nil 
+      if check_permission('VIEW_SUBCRIBED_COURSE_STUDENTS') == false 
+        return false
+      end
       is_my_created = Course.where(:id => @record.id, :user_id => @user.id)
       return (@user.admin? or is_my_created.exists?)
     end

@@ -20,26 +20,46 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    return check_permission('VIEW_USER') && @user.admin?
+    return check_permission('SEE_ALL_PROFILE')
   end
 
   def show?
-    if check_permission('VIEW_USER')
-      if @user.admin? 
-        return true
-      end
-      if @record.role == "admin"
-        return false
-      end
-      if @user.teacher? && @record.role == 'student'
-        return false
-      end 
-      if @record.id == @user.id
-        return true
-      end
-      if @user.student? && @record.role == 'student'
-        return false
-      end
+    if @user == nil 
+      return false
+    end
+    if @record.id == @user.id
+      return true
+    end
+    if check_permission('SEE_ALL_PROFILE')
+      return true
+    end
+    if @record.role == 'teacher' && check_permission('SEE_TEACHER_PROFILE')
+      return true
+    end
+    return false
+  end
+
+  def show_permission?
+    if @user == nil 
+      return false
+    end
+    if @record.id == @user.id
+      return true
+    end
+    if @user.admin?
+      return true
+    end
+    return false
+  end
+
+  def edit_permission?
+    if @user == nil 
+      return false
+    end
+    if @user.id == @record.id && @user.admin?
+      return false
+    end
+    if check_permission('EDIT_USER_PERMISSION')
       return true
     end
     return false

@@ -1,0 +1,6 @@
+class AddPermissionNameToPermissionDetail < ActiveRecord::Migration[6.0]
+  def change
+    add_column :permission_details, :action_name, :string
+    add_column :permission_details, :enable, :boolean, default: true
+  end
+end

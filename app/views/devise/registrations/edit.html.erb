@@ -55,6 +55,28 @@
       <br />
       <div class="card">
         <div class="card-header">
+          Your Permissions
+        </div>
+        <div class="card-body">
+          <% current_user.user_permissions.reverse.each do |user_permission| %>
+            <% if user_permission.permission.name_per != "Default Permission" %>
+              <% user_permission.permission.permission_details.each do |per| %>
+              <p> 
+              <% if per.licensed == true %>
+                <b>Active</b>
+              <% else %>
+                Inactive
+              <% end %>
+               - <%= per.permission_action.action_name %>
+              </p>
+            <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <br />
+      <div class="card">
+        <div class="card-header">
           Two factor authentication
         </div>
         <div class="card-body">

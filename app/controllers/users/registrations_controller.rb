@@ -12,14 +12,48 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super do |user|
-      # Default Permission: Basic Reader, Basic Writer
-      UserPermission.create({user_id: user.id, permission_id: 2, licensed: true})
-      UserPermission.create({user_id: user.id, permission_id: 3, licensed: true})
+      UserPermission.create({user_id: user.id, permission_id: 6, licensed: true})
       if user.teacher?
-        UserPermission.create({user_id: user.id, permission_id: 4, licensed: true})
+        t = Permission.create({name_per: "Teacher #{user.id}"})
+        UserPermission.create({user_id: user.id, permission_id: t.id, licensed: true})
+        PermissionDetail.create([
+          {
+            permission_id: t.id,
+            permission_action_id: 1,
+            licensed: true,
+          },
+          {
+            permission_id: t.id,
+            permission_action_id: 2,
+            licensed: true,
+          },
+          {
+            permission_id: t.id,
+            permission_action_id: 3,
+            licensed: true,
+          },
+          {
+            permission_id: t.id,
+            permission_action_id: 10,
+            licensed: true,
+          },
+        ])
       end
       if user.student?
-        UserPermission.create({user_id: user.id, permission_id: 5, licensed: true})
+        t = Permission.create({name_per: "Student #{user.id}"})
+        UserPermission.create({user_id: user.id, permission_id: t.id, licensed: true})
+        PermissionDetail.create([
+          {
+            permission_id: t.id,
+            permission_action_id: 4,
+            licensed: true,
+          },
+          {
+            permission_id: t.id,
+            permission_action_id: 5,
+            licensed: true,
+          }
+        ])
       end
     end
   end

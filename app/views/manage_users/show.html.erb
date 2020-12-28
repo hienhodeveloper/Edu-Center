@@ -18,6 +18,66 @@
 <small>Last update</small>
 <h6><%= @user.updated_at.strftime("%d/%m/%Y %R") %></h6>
 
+<% if policy(@user).show_permission? %>
+  <div class="card">
+    <div class="card-header">
+      Permissions
+    </div>
+    <div class="card-body">
+      <% if !policy(@user).edit_permission? or @user.id == current_user.id %>      
+        <% @user.user_permissions.reverse.each do |user_permission| %>
+          <% if user_permission.permission.name_per != "Default Permission" %>
+            <% user_permission.permission.permission_details.each do |per| %>
+            <p> 
+            <% if per.licensed == true %>
+              <b>Active</b>
+            <% else %>
+              Inactive
+            <% end %>
+              - <%= per.permission_action.action_name %>
+            </p>
+          <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Permission Name</th>
+              <th scope="col">Current Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @user.user_permissions.reverse.each do |user_permission| %>
+              <% if user_permission.permission.name_per != "Default Permission" %>
+                <% user_permission.permission.permission_details.each do |per| %>
+                  <tr>
+                    <td><%= per.permission_action.action_name %></td>
+                    <td>
+                    <p> 
+              <% if per.licensed == true %>
+                <b>Active</b>
+              <% else %>
+                Inactive
+              <% end %>
+              </p>
+                    </td>
+                    <% if per.licensed %>
+                        <td><%= link_to 'Inactive', manage_users_update_per_path(@user, u_id: user_permission.user_id, per_id: per.id, action_p: 'inactive'), method: :post, data: { confirm: 'Inactive this permission. Are you sure?' }  %></td>
+                    <% else %>
+                        <td><%= link_to 'Active', manage_users_update_per_path(@user, u_id: user_permission.user_id, per_id: per.id, action_p: 'active'), method: :post %></td>
+                    <% end %>
+                  </tr>
+              <% end %>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+     </div>
+    </div>
+<% end %>
+<br />
 <% if @user.teacher? %>
     <h3 class="center">Created courses: </h3>
     <% if @user.courses.length() == 0 %>
@@ -69,4 +129,3 @@
       <% end %>
     <% end %>
 <% end %>
-  

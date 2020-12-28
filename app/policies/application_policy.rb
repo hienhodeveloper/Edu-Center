@@ -52,7 +52,7 @@ class ApplicationPolicy
       user_permissions = UserPermission.where(user_id: @user.id)
       result = user_permissions.each do |user_per|
         user_per.permission.permission_details.each do |per_detail|
-          if per_detail.action_code == action
+          if per_detail.permission_action.action_code == action && per_detail.licensed == true
             return true
           end
         end
