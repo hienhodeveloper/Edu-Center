@@ -60,7 +60,10 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def allowShowSubcribeStudent? 
-    is_my_created = Course.where(:id => @record.id, :user_id => @user.id)
-    return (@user.admin? or is_my_created.exists?)
+    if @user != nil 
+      is_my_created = Course.where(:id => @record.id, :user_id => @user.id)
+      return (@user.admin? or is_my_created.exists?)
+    end
+    return false
   end
 end
