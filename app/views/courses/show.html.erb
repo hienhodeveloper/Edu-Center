@@ -32,11 +32,60 @@
     </p>
   </div>
 </div>
-
 <p>
-  <h4>Subcribe user:</h4>
-  Total subcribe students: <%= @course.users.length() %>
+  <b>Total subcribed students:</b> <%= @course.users.length() %>
 </p>
+
+<% if policy(@course).allowShowSubcribeStudent? %>
+  <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+              See your students
+            </a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+          <div class="panel-body">
+            <% if @course.users.length() > 0 %>
+              
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Avatar</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Email</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                <% @course.users.each_with_index do |student, index| %>
+                <tr>
+                    <th scope="row"><%= index+1 %></th>
+                    <td>
+                      <% if student.avatar.attached? %>
+                          <%= image_tag student.avatar , class: "rounded", style: "width: 40px; height: 40px; object-fit: cover;" %>
+                      <% end %>
+                      <% if !student.avatar.attached? %>
+                          <%= image_tag "user.png" , class: "rounded", style: "width: 40px; height: 40px; object-fit: cover;" %>
+                      <% end %>
+                    </td>
+                    <td><%= student.full_name %></td>
+                    <td><%= student.email %></td>
+                </tr>
+                <% end %>
+                </tbody>
+              </table> 
+            <% else %>
+              <small>There is no student subcribe course!!!</small>
+            <% end %>
+          </div>
+        </div>
+      </div>
+  </div>
+<% end %>
 
 <p>
   <h4>Introduction:</h4>
